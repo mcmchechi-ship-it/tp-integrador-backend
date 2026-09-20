@@ -1,0 +1,29 @@
+=== GET / (HTML) ===
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 1310
+ETag: W/"51e-5QGk2kG/GIEDiv9fLo7d7tJMkss"
+Date: Sun, 20 Sep 2026 04:58:06 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+=== GET /status (JSON) ===
+{"status":"ok","message":"Servidor funcionando correctamente","data":{"uptimeSegundos":2,"nodeVersion":"v22.22.2","fecha":"2026-09-20T04:58:06.912Z"}}
+
+=== GET /estatico.html (estático desde /public) ===
+HTTP 200 text/html; charset=utf-8
+
+=== GET /css/styles.css ===
+HTTP 200 text/css; charset=utf-8
+
+=== GET /visitas (JSON) ===
+{"status":"ok","message":"Últimos registros","data":["[2026-09-20] [04:58:05] INICIO_SERVIDOR puerto 3000","[2026-09-20] [04:58:06] VISITA GET /","[2026-09-20] [04:58:06] VISITA GET /status","[2026-09-20] [04:58:06] VISITA GET /visitas"]}
+
+=== GET /ruta-inexistente (404) ===
+HTTP/1.1 404 Not Found
+{"status":"error","message":"Ruta no encontrada","data":null}

@@ -1,0 +1,7 @@
+
+> tp-integrador-backend@1.0.0 start
+> node index.js
+
+◇ injected env (1) from .env
+Servidor iniciado
+Escuchando en http://localhost:3000
