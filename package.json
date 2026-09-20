@@ -1,0 +1,30 @@
+{
+  "name": "tp-integrador-backend",
+  "version": "1.0.0",
+  "description": "TP Integrador Backend - Parte 1 (Módulo 6): servidor Node.js + Express con rutas públicas, contenido estático, vistas EJS y persistencia en archivos planos.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "backend",
+    "ejs",
+    "dotenv"
+  ],
+  "author": "MARÍA CECILIA MORALES DÍAZ",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.1",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

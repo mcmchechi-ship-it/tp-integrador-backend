@@ -1,0 +1,5 @@
+node_modules/
+.env
+# Se versiona la carpeta logs/ pero no su contenido generado
+logs/*.txt
+!logs/.gitkeep
