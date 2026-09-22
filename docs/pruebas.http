@@ -1,0 +1,150 @@
+# Pruebas de la API — requiere la extensión "REST Client" de VS Code (humao.rest-client).
+# Abre este archivo y pulsa "Send Request" sobre cada petición (aparece encima de cada línea GET/POST...).
+# Supone que cargaste los datos de ejemplo con: npm run db:seed
+#   Usuarios: 1 Ana (admin), 2 Luis, 3 Sofía   |   Etiquetas: 1 backend, 2 frontend, 3 urgente, 4 documentación
+
+@base = http://localhost:3000/api
+
+############################ USUARIOS ############################
+
+### Listar usuarios (paginado)
+GET {{base}}/usuarios?page=1&limit=5
+
+### Buscar por nombre o email
+GET {{base}}/usuarios?q=ana
+
+### Filtrar por rol y estado, ordenado por nombre descendente
+GET {{base}}/usuarios?rol=usuario&activo=true&orden=-nombre
+
+### Detalle de un usuario (incluye perfil y proyectos)
+GET {{base}}/usuarios/1
+
+### Crear usuario con perfil (relación 1:1)
+POST {{base}}/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Marta Díaz",
+  "email": "marta@ejemplo.com",
+  "password": "secreta123",
+  "perfil": { "ciudad": "Valdivia", "telefono": "+56 9 5555 6666" }
+}
+
+### ERROR 400: datos inválidos
+POST {{base}}/usuarios
+Content-Type: application/json
+
+{ "nombre": "A", "email": "no-es-email", "password": "123" }
+
+### ERROR 409: email duplicado
+POST {{base}}/usuarios
+Content-Type: application/json
+
+{ "nombre": "Otra Ana", "email": "ana@ejemplo.com", "password": "secreta123" }
+
+### Actualizar usuario
+PUT {{base}}/usuarios/2
+Content-Type: application/json
+
+{ "nombre": "Luis Alberto Soto" }
+
+### Crear o actualizar el perfil de Sofía
+PUT {{base}}/usuarios/3/perfil
+Content-Type: application/json
+
+{ "bio": "Documentación técnica", "ciudad": "Osorno" }
+
+### Ver el perfil
+GET {{base}}/usuarios/3/perfil
+
+### ERROR 404: usuario inexistente
+GET {{base}}/usuarios/9999
+
+### ERROR 400: id no numérico
+GET {{base}}/usuarios/abc
+
+############################ PROYECTOS ###########################
+
+### Listar proyectos
+GET {{base}}/proyectos
+
+### Búsqueda de texto en título o descripción
+GET {{base}}/proyectos?q=usuarios
+
+### Filtrar por estado
+GET {{base}}/proyectos?estado=pendiente
+
+### Filtrar por etiqueta (nombre o id) — relación N:M
+GET {{base}}/proyectos?etiqueta=backend
+
+### Filtros combinados
+GET {{base}}/proyectos?q=datos&estado=pendiente&etiqueta=urgente
+
+### Proyectos de un usuario (relación 1:N)
+GET {{base}}/proyectos?usuarioId=1
+
+### Proyectos vencidos (fecha límite pasada y no completados)
+GET {{base}}/proyectos?vencidos=true
+
+### Ordenar por título descendente
+GET {{base}}/proyectos?orden=-titulo
+
+### Detalle (incluye responsable y etiquetas)
+GET {{base}}/proyectos/1
+
+### Crear proyecto con etiquetas
+POST {{base}}/proyectos
+Content-Type: application/json
+
+{
+  "titulo": "Tienda online",
+  "descripcion": "Comercio electrónico",
+  "usuarioId": 2,
+  "estado": "en_progreso",
+  "fechaLimite": "2026-12-01",
+  "etiquetas": [1, 2]
+}
+
+### Actualizar estado y reemplazar etiquetas
+PUT {{base}}/proyectos/5
+Content-Type: application/json
+
+{ "estado": "completado", "etiquetas": [4] }
+
+### ERROR 404: usuario responsable inexistente
+POST {{base}}/proyectos
+Content-Type: application/json
+
+{ "titulo": "Proyecto huérfano", "usuarioId": 999 }
+
+### ERROR 400: estado no permitido
+POST {{base}}/proyectos
+Content-Type: application/json
+
+{ "titulo": "Estado inválido", "usuarioId": 1, "estado": "terminado" }
+
+### Eliminar proyecto
+DELETE {{base}}/proyectos/5
+
+############################ ETIQUETAS ###########################
+
+### Listar etiquetas
+GET {{base}}/etiquetas
+
+### Crear etiqueta
+POST {{base}}/etiquetas
+Content-Type: application/json
+
+{ "nombre": "QA", "color": "#ff8800" }
+
+### Detalle con proyectos que la usan
+GET {{base}}/etiquetas/1
+
+### Actualizar etiqueta
+PUT {{base}}/etiquetas/5
+Content-Type: application/json
+
+{ "color": "#000000" }
+
+### Eliminar etiqueta
+DELETE {{base}}/etiquetas/5
