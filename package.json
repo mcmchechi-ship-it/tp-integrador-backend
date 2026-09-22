@@ -1,18 +1,24 @@
 {
   "name": "tp-integrador-backend",
-  "version": "1.0.0",
-  "description": "TP Integrador Backend - Parte 1 (Módulo 6): servidor Node.js + Express con rutas públicas, contenido estático, vistas EJS y persistencia en archivos planos.",
+  "version": "2.0.0",
+  "description": "TP Integrador Backend - Partes 1 y 2 (Módulos 6 y 7): servidor Node.js + Express, persistencia en archivos planos, PostgreSQL con Sequelize y API REST con CRUD, relaciones 1:1, 1:N y N:M.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:create": "node scripts/crear-bd.js",
+    "db:seed": "node scripts/seed.js",
+    "db:reset": "node scripts/seed.js --reset"
   },
   "keywords": [
     "nodejs",
     "express",
     "backend",
     "ejs",
-    "dotenv"
+    "dotenv",
+    "postgresql",
+    "sequelize",
+    "rest-api"
   ],
   "author": "MARÍA CECILIA MORALES DÍAZ",
   "license": "ISC",
@@ -20,9 +26,13 @@
     "node": ">=18"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.1",
     "ejs": "^6.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.23.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

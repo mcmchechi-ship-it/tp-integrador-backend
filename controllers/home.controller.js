@@ -11,6 +11,9 @@ const inicio = (req, res) => {
       { metodo: 'GET', ruta: '/', descripcion: 'Esta página (HTML dinámico con EJS)' },
       { metodo: 'GET', ruta: '/status', descripcion: 'Estado del servidor en JSON' },
       { metodo: 'GET', ruta: '/visitas', descripcion: 'Últimos registros de log.txt' },
+      { metodo: 'CRUD', ruta: '/api/usuarios', descripcion: 'API de usuarios y perfiles (PostgreSQL)' },
+      { metodo: 'CRUD', ruta: '/api/proyectos', descripcion: 'API de proyectos (filtros y búsqueda)' },
+      { metodo: 'CRUD', ruta: '/api/etiquetas', descripcion: 'API de etiquetas' },
     ],
   });
 };
